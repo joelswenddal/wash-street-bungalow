@@ -36,19 +36,19 @@
       background: white;
       border: 1px solid var(--warm);
       border-radius: 4px;
-      padding: 3rem 3.5rem;
-      max-width: 420px;
-      width: 100%;
+      width: 3in;
+      height: 5in;
+      padding: 0.3in 0.32in;
       text-align: center;
       box-shadow: 0 4px 40px rgba(122,102,82,0.1);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.5rem;
+      justify-content: space-between;
     }
 
     .eyebrow {
-      font-size: 0.68rem;
+      font-size: 0.55rem;
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -57,10 +57,11 @@
 
     .property-name {
       font-family: var(--font-display);
-      font-size: 2.6rem;
+      font-size: 1.6rem;
       font-weight: 300;
       color: var(--ink);
       line-height: 1.1;
+      margin-top: 0.15rem;
     }
 
     .property-name em {
@@ -68,44 +69,87 @@
       color: var(--accent);
     }
 
-    .divider {
-      width: 40px;
+    .horiz-divider {
+      width: 32px;
       height: 1px;
       background: var(--sand);
+      flex-shrink: 0;
     }
 
     #qrcode {
-      padding: 1rem;
+      padding: 0.5rem;
       border: 1px solid var(--warm);
       border-radius: 4px;
       background: white;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     #qrcode canvas,
-    #qrcode img {
-      display: block;
-    }
+    #qrcode img { display: block; }
 
     .cta {
       font-family: var(--font-display);
-      font-size: 1.15rem;
+      font-size: 0.82rem;
       font-weight: 300;
       font-style: italic;
       color: var(--brown);
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
     .url {
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
+      font-size: 0.55rem;
+      letter-spacing: 0.05em;
       color: var(--sand);
     }
 
-    /* Print styles */
+    /* WiFi — clean, no inner boxes */
+    .wifi-block {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .wifi-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .wifi-label {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--sand);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .wifi-dots {
+      flex: 1;
+      border-bottom: 1px dotted var(--warm);
+      margin-bottom: 0.15rem;
+    }
+
+    .wifi-value {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.2;
+      text-align: right;
+    }
+
     @media print {
+      @page {
+        size: 3in 5in;
+        margin: 0;
+      }
       body {
         background: white;
         padding: 0;
@@ -114,8 +158,9 @@
       .card {
         box-shadow: none;
         border: 1px solid #ddd;
-        margin: 0 auto;
-        page-break-inside: avoid;
+        width: 3in;
+        height: 5in;
+        border-radius: 0;
       }
       .no-print { display: none; }
     }
@@ -129,16 +174,30 @@
 
       <h1 class="property-name">The Washington Street<br/><em>Bungalow</em></h1>
 
-      <div class="divider"></div>
+      <div class="horiz-divider"></div>
 
       <div id="qrcode"></div>
 
-      <p class="cta">Scan for unit info, dining, nightlife,<br/>shopping &amp; local recommendations</p>
+      <p class="cta">Scan for unit info, dining,<br/>nightlife &amp; recommendations</p>
 
-      <span class="url">joelswenddal.github.io/wash-street-bungalow</span>
+      <!--span class="url">joelswenddal.github.io/wash-street-bungalow</span-->
+
+      <div class="horiz-divider"></div>
+
+      <div class="wifi-block">
+        <div class="wifi-row">
+          <span class="wifi-label">📶 Wifi Network</span>
+          <span class="wifi-dots"></span>
+          <span class="wifi-value">WashStBungalow</span>
+        </div>
+        <div class="wifi-row">
+          <span class="wifi-label">🔑 Password</span>
+          <span class="wifi-dots"></span>
+          <span class="wifi-value">urbana.1951!</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Print button (hidden when printing) -->
     <div class="no-print" style="text-align:center; margin-top:1.5rem;">
       <button onclick="window.print()" style="
         font-family: 'DM Sans', sans-serif;
@@ -159,11 +218,11 @@
   <script>
     new QRCode(document.getElementById("qrcode"), {
       text: "https://joelswenddal.github.io/wash-street-bungalow/",
-      width: 200,
-      height: 200,
+      width: 130,
+      height: 130,
       colorDark: "#1a1714",
       colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H  // highest error correction
+      correctLevel: QRCode.CorrectLevel.H
     });
   </script>
 
